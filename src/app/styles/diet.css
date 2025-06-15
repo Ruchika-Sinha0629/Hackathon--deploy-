@@ -1,0 +1,193 @@
+/* .pdf-btn {
+  display: block;
+  margin: 20px auto;
+  padding: 12px 20px;
+  background: #5E81AC;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.pdf-btn:hover {
+  background: #4C6A97;
+}
+
+.diet-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.diet-table th, .diet-table td {
+  border: 1px solid #D8DEE9;
+  padding: 12px;
+  text-align: center;
+  vertical-align: top;
+}
+
+.diet-table th {
+  background-color: #E5E9F0;
+  color: #4C566A;
+}
+
+.diet-img {
+  width: 100px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.auth-message {
+  text-align: center;
+  padding: 25px;
+  background-color: #F5F5F5;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: "Playfair Display", serif; /* Elegant font */
+  /* font-size: 1.5rem; /* Increased size */
+  /* font-weight: bold;
+  color: #333; /* Matches your theme */
+/* } */ 
+
+/* .login-btn, .register-btn {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  color: white;
+  background-color: #2E3A87;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: 0.3s ease-in-out;
+}
+
+.login-btn:hover, .register-btn:hover {
+  background-color: #4A6FA5;
+} */ */
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Mobile-friendly adjustments */
+@media (max-width: 600px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .diet-img {
+    width: 80px; /* Reduce image size on small screens */
+  }
+}
+
+h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #5E81AC;
+  text-align: center;
+  margin-bottom: 1.2rem;
+}
+
+/* PDF Download Button */
+.pdf-btn {
+  display: block;
+  margin: 20px auto;
+  padding: 12px 20px;
+  background: #5E81AC;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease-in-out;
+}
+
+.pdf-btn:hover {
+  background: #4C6A97;
+  transform: scale(1.05);
+}
+
+/* Diet Plan Table */
+.diet-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+/* Table Headers */
+.diet-table th {
+  background-color: #D8DEE9; /* Slightly darker for better contrast */
+  color: #4C566A;
+  padding: 14px;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* Table Cells */
+.diet-table th, .diet-table td {
+  border: 1px solid #D8DEE9;
+  padding: 12px;
+  text-align: center;
+  vertical-align: top;
+}
+
+/* Alternate Row Colors */
+.diet-table tr:nth-child(even) {
+  background-color: #F7F9FC;
+}
+
+.diet-table tr:hover {
+  background-color: #EDF3FA;
+}
+
+/* Diet Images */
+.diet-img {
+  width: 120px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Improve readability for ingredients and preparation */
+.ingredients, .procedure {
+  text-align: left;
+  padding: 10px;
+}
+
+/* Authentication Message */
+.auth-message {
+  text-align: center;
+  padding: 25px;
+  background-color: #F5F5F5;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: "Playfair Display", serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Login & Register Buttons */
+.login-btn, .register-btn {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  color: white;
+  background-color: #2E3A87;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.login-btn:hover, .register-btn:hover {
+  background-color: #4A6FA5;
+  transform: scale(1.05);
+}

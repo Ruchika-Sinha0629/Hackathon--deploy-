@@ -1,0 +1,133 @@
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 1.5rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #5E81AC;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-top: 1rem;
+  color: #4C566A;
+}
+
+/* Input Fields */
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 0.5rem;
+  border: 1px solid #D8DEE9;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #ECEFF4;
+}
+
+input:focus, select:focus {
+  border-color: #5E81AC;
+}
+
+/* Check-in Section */
+.check-in-container {
+  padding: 1rem;
+  margin-top: 1rem;
+  background: #ECEFF4;
+  border-radius: 8px;
+  border: 1px solid #D8DEE9;
+}
+
+/* Check-in Button */
+button {
+  width: 100%;
+  padding: 12px;
+  background: #5E81AC;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background: #4C6A97;
+}
+
+/* Progress Card */
+.progress-card {
+  background: #ffffff;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #D8DEE9;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-size: 1.1rem;
+  color: #4C566A;
+}
+
+/* Weight & Workout History Styling */
+.history-list {
+  list-style: none;
+  padding: 0;
+}
+
+.history-list li {
+  padding: 12px;
+  border-bottom: 1px solid #D8DEE9;
+  font-size: 1rem;
+  color: #4C566A;
+}
+
+.auth-message {
+  text-align: center;
+  padding: 25px;
+  background-color: #F5F5F5;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: "Playfair Display", serif; /* Elegant font */
+  font-size: 1.5rem; /* Increased size */
+  font-weight: bold;
+  color: #333; 
+}
+
+.login-btn, .register-btn {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  color: white;
+  background-color: #2E3A87;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: 0.3s ease-in-out;
+}
+
+.login-btn:hover, .register-btn:hover {
+  background-color: #4A6FA5;
+}
+
+.welcome-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 12px 20px;
+  margin-bottom: 20px;
+  border: 1px solid #c3e6cb;
+  border-radius: 8px;
+  font-weight: bold;
+  animation: fadein 0.5s ease-in-out;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

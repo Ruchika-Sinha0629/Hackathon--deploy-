@@ -1,0 +1,105 @@
+.container {
+  max-width: 700px;
+  margin: auto;
+  padding: 2rem;
+  background: #FFFFFF;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+h1 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #5E81AC;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 1.4rem;
+  color: #4C566A;
+}
+
+h3 {
+  margin-top: 1.5rem;
+  color: #4C566A;
+}
+
+/* Points Display */
+.points-section {
+  background: #ECEFF4;
+  padding: 14px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #3B4252;
+  border-radius: 8px;
+  margin: 15px auto;
+  display: inline-block;
+}
+
+/* Achievements & Badges */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.achievements-list li {
+  font-size: 1rem;
+  padding: 12px;
+  background-color: #E5E9F0;
+  margin-bottom: 6px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+/* Badge Unlock Message */
+.badge-unlock {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #D08770;
+  background: #FFE4C4;
+  padding: 12px;
+  border-radius: 10px;
+  margin-top: 15px;
+}
+
+/* Milestone Progress */
+.milestone {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #8FBCBB;
+  background: #E5E9F0;
+  padding: 14px;
+  border-radius: 8px;
+  margin-top: 12px;
+}
+
+/* Final Achievement Celebration */
+.final-achievement {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #A3BE8C;
+  background: #D8F3DC;
+  padding: 16px;
+  border-radius: 12px;
+  margin-top: 18px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5rem;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  .points-section {
+    font-size: 1rem;
+  }
+
+  .badge-unlock, .final-achievement, .milestone {
+    font-size: 1rem;
+  }
+}
