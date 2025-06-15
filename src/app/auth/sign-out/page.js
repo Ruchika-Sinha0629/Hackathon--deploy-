@@ -1,9 +1,18 @@
-export default function SignOutPage() {
-  return (
-    <div style={{ textAlign: "center", padding: "2rem" }}>
-      <h1>You’ve been signed out</h1>
-      <p>Thank you for using FitTrack Pro.</p>
-      <a href="/auth/login" style={{ color: "#5E81AC" }}>Log back in</a>
-    </div>
-  );
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+
+export default function SignOut() {
+  const router = useRouter();
+
+  useEffect(() => {
+    // Clear token or any other stored auth data
+    localStorage.removeItem("token");
+
+    // Optionally redirect to home or login page after sign out
+    router.push("/auth/login");
+  }, [router]);
+
+  return <p>Signing you out...</p>;
 }
