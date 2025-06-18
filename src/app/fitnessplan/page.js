@@ -57,17 +57,17 @@
 
 "use client";
 import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react"; // Import NextAuth session
+import { useSession } from "next-auth/react"; 
 import axios from "axios";
-import "/src/app/styles/fitness.css"; // Ensure proper styling
+import "/src/app/styles/fitness.css"; 
 
 export default function FitnessPlan() {
-  const { data: session } = useSession(); // Get user session
+  const { data: session } = useSession(); 
   const [plan, setPlan] = useState(null);
 
   useEffect(() => {
     if (session) {
-      axios.get("/api/generatePlan").then(res => setPlan(res.data));
+      axios.get("/api/fitness/generatePlan").then(res => setPlan(res.data));
     }
   }, [session]);
 
@@ -117,3 +117,4 @@ export default function FitnessPlan() {
     </div>
   );
 }
+

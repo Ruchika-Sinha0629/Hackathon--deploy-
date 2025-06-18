@@ -44,9 +44,6 @@ export default function ProgressClient({ userId }) {
     // Check if welcome param is in URL
     if (searchParams.get("welcome") === "true") {
         setShowWelcome(true);
-    
-        // Remove welcome after 5 seconds
-        //setTimeout(() => setShowWelcome(false), 5000);
         }
   }, [userId]);
 

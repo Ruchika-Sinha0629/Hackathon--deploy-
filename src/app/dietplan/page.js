@@ -82,7 +82,7 @@ export default function DietPlan() {
 
   useEffect(() => {
     if (session) {
-      axios.get("/api/generatePlan").then((res) => setDiet(res.data));
+      axios.get("/api/fitness/generatePlan").then((res) => setDiet(res.data));
     }
   }, [session]);
 

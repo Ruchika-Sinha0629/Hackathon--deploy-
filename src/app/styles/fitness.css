@@ -159,3 +159,13 @@ h1 {
   background-color: #4A6FA5;
   transform: scale(1.05);
 }
+
+
+
+
+
+
+.workout-button.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

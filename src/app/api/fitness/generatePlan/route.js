@@ -1,198 +1,22 @@
-// import { connectToDatabase } from "@/lib/mongodb";
-// import User from "@/models/User";
-// import { getSession } from "next-auth/react";
-
-// export async function GET(req) {
-//   await connectToDatabase();
-//   const session = await getSession({ req });
-
-//   if (!session?.user?.id) {
-//     return Response.json({ error: "Unauthorized" }, { status: 401 });
-//   }
-
-//   const user = await User.findById(session.user.id);
-//   if (!user) return Response.json({ error: "User not found" }, { status: 404 });
-
-//   const weeksTracked = user.workoutHistory?.length / 7 || 0;
-
-//   let difficulty;
-//   let reps, duration;
-//   if (weeksTracked >= 4) {
-//     difficulty = "Advanced";
-//     reps = 20;
-//     duration = "60 sec";
-//   } else if (weeksTracked >= 2) {
-//     difficulty = "Intermediate";
-//     reps = 15;
-//     duration = "45 sec";
-//   } else {
-//     difficulty = "Beginner";
-//     reps = 10;
-//     duration = "30 sec";
-//   }
-
-//   let workoutPlan = [];
-//   const isWeightLoss = user.fitnessGoal === "Lose Weight";
-
-//   if (isWeightLoss) {
-//     workoutPlan = [
-//       { day: "Monday", exercises: [
-//         { name: "Burpees", sets: 3, reps, rest: "45 sec" },
-//         { name: "Jump Squats", sets: 3, reps, rest: "45 sec" }
-//       ]},
-//       { day: "Tuesday", exercises: [
-//         { name: "Mountain Climbers", sets: 3, reps, rest: "30 sec" },
-//         { name: "Plank", sets: 2, reps: duration, rest: "30 sec" },
-//         { name: "High Knees", sets: 3, reps, rest: "30 sec" }
-//       ]},
-//       { day: "Wednesday", exercises: [
-//         { name: "Jumping Jacks", sets: 3, reps, rest: "30 sec" },
-//         { name: "Skaters", sets: 3, reps, rest: "30 sec" }
-//       ]},
-//       { day: "Thursday", exercises: [
-//         { name: "Step-ups", sets: 3, reps, rest: "45 sec" },
-//         { name: "Push-ups", sets: 3, reps, rest: "60 sec" },
-//         { name: "Glute Bridge", sets: 3, reps, rest: "45 sec" }
-//       ]},
-//       { day: "Friday", exercises: [
-//         { name: "Air Squats", sets: 3, reps, rest: "30 sec" },
-//         { name: "Lunges", sets: 3, reps, rest: "45 sec" }
-//       ]},
-//       { day: "Saturday", exercises: [
-//         { name: "HIIT Sprint Intervals", sets: 1, reps: duration, rest: "N/A" },
-//         { name: "Burpees", sets: 3, reps, rest: "45 sec" },
-//         { name: "Wall Sit", sets: 2, reps: duration, rest: "30 sec" }
-//       ]},
-//       { day: "Sunday", exercises: [
-//         { name: "Rest Day", sets: "-", reps: "-", rest: "Recover" }
-//       ]}
-//     ];
-//   } else {
-//     workoutPlan = [
-//       { day: "Monday", exercises: [
-//         { name: "Bench Press", sets: 4, reps, rest: "90 sec" },
-//         { name: "Incline Dumbbell Press", sets: 3, reps, rest: "60 sec" }
-//       ]},
-//       { day: "Tuesday", exercises: [
-//         { name: "Barbell Squats", sets: 4, reps, rest: "90 sec" },
-//         { name: "Leg Press", sets: 3, reps, rest: "60 sec" },
-//         { name: "Calf Raises", sets: 3, reps, rest: "45 sec" }
-//       ]},
-//       { day: "Wednesday", exercises: [
-//         { name: "Deadlifts", sets: 4, reps, rest: "90 sec" },
-//         { name: "Pull-ups", sets: 3, reps, rest: "60 sec" }
-//       ]},
-//       { day: "Thursday", exercises: [
-//         { name: "Overhead Press", sets: 3, reps, rest: "60 sec" },
-//         { name: "Lateral Raises", sets: 3, reps, rest: "45 sec" },
-//         { name: "Tricep Dips", sets: 3, reps, rest: "60 sec" }
-//       ]},
-//       { day: "Friday", exercises: [
-//         { name: "Dumbbell Rows", sets: 3, reps, rest: "60 sec" },
-//         { name: "Hammer Curls", sets: 3, reps, rest: "45 sec" }
-//       ]},
-//       { day: "Saturday", exercises: [
-//         { name: "Push-ups", sets: 3, reps, rest: "60 sec" },
-//         { name: "Bodyweight Squats", sets: 3, reps, rest: "45 sec" },
-//         { name: "Plank", sets: 2, reps: duration, rest: "30 sec" }
-//       ]},
-//       { day: "Sunday", exercises: [
-//         { name: "Rest Day", sets: "-", reps: "-", rest: "Recover" }
-//       ]}
-//     ];
-//   }
-// }
-
-// let dietPlan;
-
-// if (isWeightLoss) {
-//   dietPlan = [
-//     {
-//       meal: "Breakfast",
-//       food: "Oatmeal & fruit",
-//       calories: 350,
-//       image: "/images/oatmeal.jpg",
-//       ingredients: ["Oats", "Milk", "Banana", "Honey"],
-//       procedure: "Combine oats and milk. Heat, top with banana and honey."
-//     },
-//     {
-//       meal: "Lunch",
-//       food: "Grilled chicken & veggies",
-//       calories: 500,
-//       image: "/images/grilled-chicken.jpg",
-//       ingredients: ["Chicken breast", "Bell peppers", "Olive oil", "Salt"],
-//       procedure: "Grill chicken with spices; sauté veggies separately."
-//     },
-//     {
-//       meal: "Dinner",
-//       food: "Salmon & quinoa",
-//       calories: 550,
-//       image: "/images/salmon-quinoa.jpg",
-//       ingredients: ["Salmon", "Quinoa", "Garlic", "Lemon"],
-//       procedure: "Bake salmon and cook quinoa. Serve with lemon."
-//     },
-//     {
-//       meal: "Snack",
-//       food: "Greek yogurt & berries",
-//       calories: 200,
-//       image: "/images/yogurt-berries.jpg",
-//       ingredients: ["Greek yogurt", "Blueberries", "Honey"],
-//       procedure: "Mix all ingredients and chill lightly."
-//     }
-//   ];
-// } else {
-//   dietPlan = [
-//     {
-//       meal: "Breakfast",
-//       food: "Scrambled eggs & toast",
-//       calories: 500,
-//       image: "/images/eggs-toast.jpg",
-//       ingredients: ["Eggs", "Whole wheat toast", "Butter"],
-//       procedure: "Scramble eggs; toast bread and add butter."
-//     },
-//     {
-//       meal: "Lunch",
-//       food: "Brown rice & chicken",
-//       calories: 600,
-//       image: "/images/rice-chicken.jpg",
-//       ingredients: ["Brown rice", "Chicken breast", "Spices"],
-//       procedure: "Cook rice; grill chicken and combine with spices."
-//     },
-//     {
-//       meal: "Dinner",
-//       food: "Steak & sweet potato",
-//       calories: 700,
-//       image: "/images/steak-potato.jpg",
-//       ingredients: ["Steak", "Sweet potato", "Olive oil"],
-//       procedure: "Grill steak; roast sweet potato until tender."
-//     },
-//     {
-//       meal: "Snack",
-//       food: "Protein shake & nuts",
-//       calories: 300,
-//       image: "/images/protein-shake.jpg",
-//       ingredients: ["Whey protein", "Milk", "Almonds"],
-//       procedure: "Blend milk and protein; top with almonds."
-//     }
-//   ];
-// }
-
-// return Response.json({ workoutPlan, dietPlan });
 
 import { connectToDatabase } from "@/lib/mongodb";
 import User from "@/models/User";
-import { getSession } from "next-auth/react";
+import { getToken } from "next-auth/jwt"; // Use JWT token helper for App Router
 
-export async function GET(req) {
+export async function GET(request) {
   await connectToDatabase();
-  const session = await getSession({ req });
 
-  if (!session?.user?.id) {
-    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  // Get token from request headers, to identify user
+  const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
+
+  if (!token?.sub) {
+    return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
   }
 
-  const user = await User.findById(session.user.id);
-  if (!user) return Response.json({ error: "User not found" }, { status: 404 });
+  const user = await User.findById(token.sub);
+  if (!user) {
+    return new Response(JSON.stringify({ error: "User not found" }), { status: 404 });
+  }
 
   const weeksTracked = user.workoutHistory?.length / 7 || 0;
 
@@ -237,7 +61,7 @@ export async function GET(req) {
         { day: "Sunday", exercises: [{ name: "Rest Day" }] },
       ],
     },
-    "Build Muscle": {
+    "Gain Muscle": {
       Senior: [
         { day: "Monday", exercises: [{ name: "Chair Squats", sets: 3, reps, rest: "30 sec", calories: 100 }] },
         { day: "Tuesday", exercises: [{ name: "Light Resistance Band Training", duration, calories: 90 }] },
@@ -258,21 +82,6 @@ export async function GET(req) {
       ],
     },
   };
-
-  // **Diet Plan**
-  // const dietPlan = isWeightLoss
-  //   ? [
-  //       { meal: "Breakfast", food: "Oatmeal & Fruit", calories: 350 },
-  //       { meal: "Lunch", food: "Grilled Chicken & Veggies", calories: 500 },
-  //       { meal: "Dinner", food: "Salmon & Quinoa", calories: 550 },
-  //       { meal: "Snack", food: "Greek Yogurt & Berries", calories: 200 },
-  //     ]
-  //   : [
-  //       { meal: "Breakfast", food: "Scrambled Eggs & Toast", calories: 500 },
-  //       { meal: "Lunch", food: "Brown Rice & Chicken", calories: 600 },
-  //       { meal: "Dinner", food: "Steak & Sweet Potato", calories: 700 },
-  //       { meal: "Snack", food: "Protein Shake & Nuts", calories: 300 },
-  //     ];
 
   const dietPlan = isWeightLoss
   ? [
@@ -332,7 +141,7 @@ export async function GET(req) {
         nonVeg: "Scrambled Eggs & Toast",
         calories: 500,
         imageVeg: "/images/paneer-toast.jpg",
-        imageNonVeg: "/images/eggs-toast.jpg",
+        imageNonVeg: "/images/egg-toast.jpg",
         ingredientsVeg: ["Paneer", "Whole wheat toast", "Butter"],
         ingredientsNonVeg: ["Eggs", "Whole wheat toast", "Butter"],
         procedureVeg: "Scramble paneer with butter, serve with toasted bread.",
@@ -376,8 +185,36 @@ export async function GET(req) {
       }
     ];
 
-  return Response.json({
-    workoutPlan: workoutPlan[user.fitnessGoal][ageGroup],
-    dietPlan,
-  });
+const planByGoal = workoutPlan[user.fitnessGoal];
+
+if (!planByGoal) {
+  return new Response(
+    JSON.stringify({ error: `No workout plan for goal: ${user.fitnessGoal}` }),
+    {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    }
+  );
+}
+
+const finalWorkoutPlan = planByGoal[ageGroup];
+
+if (!finalWorkoutPlan) {
+  return new Response(
+    JSON.stringify({ error: `No plan for age group: ${ageGroup}` }),
+    {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    }
+  );
+}
+
+// Safe to return the data now
+return new Response(
+  JSON.stringify({ workoutPlan: finalWorkoutPlan, dietPlan }),
+  {
+    status: 200,
+    headers: { "Content-Type": "application/json" },
+  }
+);
 }

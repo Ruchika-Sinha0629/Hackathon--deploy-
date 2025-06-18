@@ -35,9 +35,9 @@ NEXTAUTH_URL=http://localhost:3000
 
 4️⃣ Start the Development Server
 npm run dev
-
-
 Visit http://localhost:3000 in your browser.
+
+
 5️⃣ Generate Grocery List PDF
 Run the API to generate a grocery list PDF:
 curl http://localhost:3000/api/fitness/generatePDF

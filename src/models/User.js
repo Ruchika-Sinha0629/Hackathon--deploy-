@@ -4,13 +4,14 @@ const UserSchema = new mongoose.Schema({
   name: String,
   email: String,
   password: String,
-  weight: Number,
+  startingWeight: Number, 
+  targetWeight: Number,
   height: Number,
   age: Number,
   gender: String,
   fitnessGoal: String, 
   healthRestrictions: [String], 
-  points: { type: Number, default: 0 }, // Gamification tracking
+  points: { type: Number, default: 0 }, 
   weightHistory: {
     type: [
       {
@@ -33,6 +34,11 @@ const UserSchema = new mongoose.Schema({
     type: [{ date: String, completedWorkouts: Number }],
     default: [],
   },
+  achievements: {
+    type: [String],
+    default: [], 
+  },
+
 });
 
 export default mongoose.models.User || mongoose.model("User", UserSchema);
