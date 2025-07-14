@@ -19,7 +19,15 @@ export async function POST(req) {
 
   // Log workout completion
   if (workoutCompleted) {
-    user.workoutHistory.push({ date: today, calories: caloriesBurned || 0 });
+     if (typeof caloriesBurned !== "number" || caloriesBurned <= 0) {
+    return Response.json(
+      { error: "Calories burned must be a positive number." },
+      { status: 400 }
+    );
+
+    }
+
+    user.workoutHistory.push({ date: today, calories: caloriesBurned });
 
     // Prevent duplicate entry for same day streak
     const alreadyLogged = user.workoutStreaks.find((s) => s.date === today);

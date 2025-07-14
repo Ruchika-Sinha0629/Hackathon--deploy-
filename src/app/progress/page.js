@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route"; // adjust path as needed
+import { authOptions } from "../api/auth/[...nextauth]/route"; 
 import ProgressClient from "./ProgressClient";
 
 export default async function ProgressDashboard() {

@@ -28,6 +28,7 @@ export default function Navbar() {
             <li><Link className="nav-links" href="/progress">Progress</Link></li>
             <li><Link className="nav-links" href="/progress/check-in">Check-in</Link></li>
             <li><Link className="nav-links" href="/gamification" aria-label="Gaming Dashboard">Gamification</Link></li>
+            <li><Link className="nav-links" href="/rewards" aria-label="Rewards">Rewards</Link></li>
             <li><Link className="nav-links" href="/fitnessplan" aria-label="Fitness Plan">Fitness Plan</Link></li>
             <li><Link className="nav-links" href="/dietplan" aria-label="Diet Plan">Diet Plan</Link></li>
             <li><button className="nav-links signout-btn" onClick={handleSignOut}>Sign Out</button></li>

@@ -60,10 +60,10 @@ if (completedWorkout && !alreadyRewarded) {
 
       if (user.points >= 1000 && !achievements.includes("Diamond Badge")) {
         achievements.push("Diamond Badge");
-      } else if (user.points >= 500 && !achievements.includes("Silver Badge")) {
-        achievements.push("Silver Badge");
-      } else if (user.points >= 200 && !achievements.includes("Gold Badge")) {
+      } else if (user.points >= 500 && !achievements.includes("Gold Badge")) {
         achievements.push("Gold Badge");
+      } else if (user.points >= 200 && !achievements.includes("Silver Badge")) {
+        achievements.push("Silver Badge");
       }
 
       user.achievements = achievements;

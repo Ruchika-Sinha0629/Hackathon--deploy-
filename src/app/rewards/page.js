@@ -1,9 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 import "/src/app/styles/rewards.css";
 
 export default function RewardsPage() {
+
+  const { data: session } = useSession();
+
   const [data, setData] = useState(null);
   const [rewards] = useState([
     { name: "Premium Workout Plan", cost: 500 },
@@ -11,8 +15,12 @@ export default function RewardsPage() {
   ]);
 
   useEffect(() => {
-    axios.get("/api/progress/route?userId=USER_ID").then(res => setData(res.data));
-  }, []);
+  if (session?.user?.id) {
+    axios
+      .get(`/api/progress/?userId=${session.user.id}`)
+      .then((res) => setData(res.data));
+  }
+}, [session]);
 
   const redeemReward = async (reward) => {
     axios.post("/api/fitness/gamification", { redeemReward: reward }).then(res => setData(res.data));

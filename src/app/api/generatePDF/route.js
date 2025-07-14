@@ -1,9 +1,9 @@
+export const runtime = "nodejs";
+
 import { getToken } from "next-auth/jwt";
 import { connectToDatabase } from "@/lib/mongodb";
 import User from "@/models/User";
-import PDFDocument from "pdfkit";
-import { PassThrough } from "stream";
-import getStream from "get-stream";
+import { PDFDocument, StandardFonts } from "pdf-lib";
 
 export async function GET(req) {
   try {
@@ -19,14 +19,15 @@ export async function GET(req) {
       return new Response("User not found", { status: 404 });
     }
 
+    // Fetch diet plan
     const host = req.headers.get("host");
     const protocol = req.headers.get("x-forwarded-proto") || "http";
     const fetchUrl = `${protocol}://${host}/api/fitness/generatePlan`;
 
     const res = await fetch(fetchUrl, {
       headers: {
-        cookie: req.headers.get("cookie") || ""
-      }
+        cookie: req.headers.get("cookie") || "",
+      },
     });
 
     if (!res.ok) {
@@ -35,26 +36,45 @@ export async function GET(req) {
     }
 
     const { dietPlan } = await res.json();
-    const groceryItems = new Set();
+    if (!Array.isArray(dietPlan)) {
+      throw new Error("Invalid dietPlan format");
+    }
 
+    const groceryItems = new Set();
     dietPlan.forEach((meal) => {
       meal.ingredientsVeg?.forEach((item) => groceryItems.add(item));
       meal.ingredientsNonVeg?.forEach((item) => groceryItems.add(item));
     });
 
-    const doc = new PDFDocument();
-    const passthrough = new PassThrough();
-    doc.pipe(passthrough);
+    // Created PDF using pdf-lib
+    const pdfDoc = await PDFDocument.create();
+    const page = pdfDoc.addPage([595.28, 841.89]); // A4 size in points
+    const font = await pdfDoc.embedFont(StandardFonts.TimesRoman);
 
-    doc.fontSize(20).text("🛒 Grocery List", { align: "center" }).moveDown();
-    groceryItems.forEach((item) => {
-      doc.fontSize(14).text(`- ${item}`);
+    const { width, height } = page.getSize();
+    let y = height - 50;
+
+    page.drawText(" Grocery List", {
+      x: 50,
+      y,
+      size: 20,
+      font,
     });
-    doc.end();
 
-    const buffer = await getStream.buffer(passthrough);
+    y -= 40;
+    groceryItems.forEach((item) => {
+      page.drawText(`• ${item}`, {
+        x: 60,
+        y,
+        size: 14,
+        font,
+      });
+      y -= 20;
+    });
 
-    return new Response(buffer, {
+    const pdfBytes = await pdfDoc.save();
+
+    return new Response(pdfBytes, {
       status: 200,
       headers: {
         "Content-Type": "application/pdf",
@@ -62,7 +82,7 @@ export async function GET(req) {
       },
     });
   } catch (error) {
-    console.error("PDF Generation Error:", error);
+    console.error("PDF Generation Error:", error.stack);
     return new Response(
       JSON.stringify({
         error: "PDF generation failed",

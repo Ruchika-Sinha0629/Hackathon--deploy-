@@ -1,4 +1,3 @@
-
 import { connectToDatabase } from "@/lib/mongodb";
 import User from "@/models/User";
 import { getToken } from "next-auth/jwt"; // Use JWT token helper for App Router

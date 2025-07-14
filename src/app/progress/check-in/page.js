@@ -11,20 +11,30 @@ export default function DailyCheckIn() {
   const [caloriesBurned, setCaloriesBurned] = useState(0);
 
   const submitCheckIn = async () => {
-    if (!session?.user?.id) {
-      alert("Please log in.");
+  if (!session?.user?.id) {
+    alert("Please log in.");
+    return;
+  }
+
+  const parsedWeight = weight ? parseFloat(weight) : null;
+  const parsedCalories = parseInt(caloriesBurned);
+
+  if (workoutCompleted) {
+    if (isNaN(parsedCalories) || parsedCalories <= 0) {
+      alert("Please enter a valid number of calories burned.");
       return;
     }
+  }
 
-    await axios.post("/api/progress/update", {
-      userId: session.user.id,
-      weight: weight ? parseFloat(weight) : null,
-      workoutCompleted,
-      caloriesBurned: workoutCompleted ? parseInt(caloriesBurned) : 0,
-    });
+  await axios.post("/api/progress/update", {
+    userId: session.user.id,
+    weight: parsedWeight,
+    workoutCompleted,
+    caloriesBurned: workoutCompleted ? parsedCalories : null,
+  });
 
-    alert("Check-in saved! Your progress is updated.");
-  };
+  alert("Check-in saved! Your progress is updated.");
+};
 
   return (
     <div className="container check-in-container">
@@ -44,8 +54,13 @@ export default function DailyCheckIn() {
           <input type="number" value={caloriesBurned} onChange={(e) => setCaloriesBurned(e.target.value)} placeholder="Enter calories burned" />
         </>
       )}
-
-      <button onClick={submitCheckIn}>Submit Check-In</button>
+      
+      <button
+     onClick={submitCheckIn}
+    disabled={workoutCompleted && (!caloriesBurned || parseInt(caloriesBurned) <= 0)}
+     >
+     Submit Check-In
+     </button>
     </div>
   );
 }
