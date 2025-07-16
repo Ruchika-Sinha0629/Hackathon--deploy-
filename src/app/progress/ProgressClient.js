@@ -33,6 +33,9 @@ export default function ProgressClient({ userId }) {
   const searchParams = useSearchParams();
   const { data: session } = useSession(); // ⬅️ Get session data
 
+
+  const welcomeParam = searchParams.get("welcome");
+
   useEffect(() => {
     if (userId) {
       const fetchProgress = async () => {
@@ -42,10 +45,11 @@ export default function ProgressClient({ userId }) {
       fetchProgress();
     }
     // Check if welcome param is in URL
-    if (searchParams.get("welcome") === "true") {
-        setShowWelcome(true);
-        }
-  }, [userId]);
+    if (welcomeParam === "true") {
+    setShowWelcome(true);
+  }
+
+  }, [userId,welcomeParam]);
 
   if (!progress) return <p>Loading...</p>;
 

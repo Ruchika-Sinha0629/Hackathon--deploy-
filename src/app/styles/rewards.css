@@ -107,3 +107,34 @@ h3 {
     padding: 6px 12px;
   }
 }
+
+/* Authentication Message */
+.auth-message {
+  text-align: center;
+  padding: 25px;
+  background-color: #F5F5F5;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: "Playfair Display", serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Login & Register Buttons */
+.login-btn, .register-btn {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  color: white;
+  background-color: #2E3A87;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.login-btn:hover, .register-btn:hover {
+  background-color: #4A6FA5;
+  transform: scale(1.05);
+}

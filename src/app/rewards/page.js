@@ -6,7 +6,7 @@ import "/src/app/styles/rewards.css";
 
 export default function RewardsPage() {
 
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   const [data, setData] = useState(null);
   const [rewards] = useState([
@@ -25,6 +25,17 @@ export default function RewardsPage() {
   const redeemReward = async (reward) => {
     axios.post("/api/fitness/gamification", { redeemReward: reward }).then(res => setData(res.data));
   };
+
+   // Show login prompt if not authenticated
+  if (status === "unauthenticated") {
+    return (
+      <div className="auth-message">
+        <p>Please log in or register to view your rewards earned.</p>
+        <a href="/auth/login" className="login-btn">Login</a>
+        <a href="/auth/register" className="register-btn">Register</a>
+      </div>
+    );
+  }
 
   if (!data) return <p>Loading...</p>;
 

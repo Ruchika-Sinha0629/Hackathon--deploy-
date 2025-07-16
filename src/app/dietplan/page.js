@@ -75,10 +75,12 @@ export default function DietPlan() {
                 <img src={item.imageVeg} className="diet-img" alt={item.veg} />
                 <img src={item.imageNonVeg} className="diet-img" alt={item.nonVeg} />
               </td>
+
               <td>
                 <strong>Veg:</strong> {item.ingredientsVeg.join(", ")} <br />
                 <strong>Non-Veg:</strong> {item.ingredientsNonVeg.join(", ")}
               </td>
+
               <td>
                 <strong>Veg:</strong> {item.procedureVeg} <br />
                 <strong>Non-Veg:</strong> {item.procedureNonVeg}

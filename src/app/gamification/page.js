@@ -1,37 +1,47 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 import "/src/app/styles/gamification.css";
 
 export default function Gamification() {
+
+  const { data: session, status } = useSession();
+
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [workoutSubmitted, setWorkoutSubmitted] = useState(false);
 
   // Check workout status on initial load
-  useEffect(() => {
-    const checkWorkoutStatus = async () => {
-      try {
-        const response = await axios.post("/api/gamification", {
-          completedWorkout: false, // just checking status
-        });
-        setData(response.data);
-        setWorkoutSubmitted(response.data.alreadyRewarded || false);
-      } catch (error) {
-        console.error("Error checking workout status:", error);
-      }
-    };
+useEffect(() => {
+  if (status !== "authenticated") return;
 
-    checkWorkoutStatus();
-  }, []);
+  const checkWorkoutStatus = async () => {
+    try {
+      const response = await axios.post(
+        "/api/gamification",
+        { completedWorkout: false },
+        { withCredentials: true }
+      );
+      setData(response.data);
+      setWorkoutSubmitted(response.data.alreadyRewarded || false);
+    } catch (error) {
+      console.error("Error checking workout status:", error);
+    }
+  };
+
+  checkWorkoutStatus();
+}, [status]);
 
   const handleWorkoutComplete = async () => {
     setLoading(true);
     try {
       const response = await axios.post("/api/gamification", {
         completedWorkout: true,
-        weightUpdate: 75, // Optional 
-      });
+        weightUpdate: 75 } , // Optional 
+        { withCredentials: true }
+
+      );
       setData(response.data);
       setWorkoutSubmitted(true);
     } catch (error) {
@@ -40,6 +50,17 @@ export default function Gamification() {
       setLoading(false);
     }
   };
+
+   // Show login prompt if not authenticated
+  if (status === "unauthenticated") {
+    return (
+      <div className="auth-message">
+        <p>Please log in or register to view your gamification dashboard.</p>
+        <a href="/auth/login" className="login-btn">Login</a>
+        <a href="/auth/register" className="register-btn">Register</a>
+      </div>
+    );
+  }
 
   return (
     <div className="container">

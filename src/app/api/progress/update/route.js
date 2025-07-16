@@ -48,3 +48,4 @@ export async function POST(req) {
   await user.save();
   return Response.json({ message: "Progress updated", points: user.points });
 }
+

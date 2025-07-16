@@ -43,10 +43,11 @@ if (completedWorkout && !alreadyRewarded) {
     if (weightUpdate) {
       const weightChange = Math.abs(user.startingWeight - weightUpdate);
 
-      if (weightChange % 5 === 0) {
-        milestoneMessage = `🎉 You've ${weightUpdate < user.startingWeight ? "lost" : "gained"} ${weightChange} kg!`;
-        pointsEarned += 50;
-      }
+      if (weightChange % 5 === 0 && !user.weightMilestones.includes(weightUpdate)) {
+  milestoneMessage = `🎉 You've ${weightUpdate < user.startingWeight ? "lost" : "gained"} ${weightChange} kg!`;
+  pointsEarned += 50;
+  user.weightMilestones.push(weightUpdate);
+}
 
       if (weightUpdate === user.targetWeight) {
         finalMessage = `🏆 You've reached your fitness goal of ${user.targetWeight} kg!`;
@@ -55,20 +56,23 @@ if (completedWorkout && !alreadyRewarded) {
     }
 
     // Finalize points and badges only if points were earned
-    if (pointsEarned > 0) {
-      user.points += pointsEarned;
+    // Finalize points
+if (pointsEarned > 0) {
+  user.points += pointsEarned;
+}
 
-      if (user.points >= 1000 && !achievements.includes("Diamond Badge")) {
-        achievements.push("Diamond Badge");
-      } else if (user.points >= 500 && !achievements.includes("Gold Badge")) {
-        achievements.push("Gold Badge");
-      } else if (user.points >= 200 && !achievements.includes("Silver Badge")) {
-        achievements.push("Silver Badge");
-      }
+// ✅ Always check for badge upgrades
+if (user.points >= 1000 && !achievements.includes("Diamond Badge")) {
+  achievements.push("Diamond Badge");
+}
+if (user.points >= 500 && !achievements.includes("Gold Badge")) {
+  achievements.push("Gold Badge");
+}
+if (user.points >= 200 && !achievements.includes("Silver Badge")) {
+  achievements.push("Silver Badge");
+}
 
-      user.achievements = achievements;
-    }
-
+user.achievements = achievements;
     await user.save();
 
     return new Response(
@@ -76,7 +80,7 @@ if (completedWorkout && !alreadyRewarded) {
         pointsEarned,
         achievements: user.achievements,
         totalPoints: user.points,
-        alreadyRewarded:true,
+        alreadyRewarded,
         milestoneMessage,
         finalMessage,
       }),
