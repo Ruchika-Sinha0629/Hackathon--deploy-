@@ -13,7 +13,7 @@ A customizable fitness and diet tracking application designed to help users opti
 3. Database: MongoDB (with Mongoose)
 4. Authentication: NextAuth.js
 4. UI Styling: CSS, Tailwind CSS
-5. PDF Generation: pdfkit
+5. PDF Generation: pdf-lib
 6. Deployment: Vercel 
 
 # Setup Instructions
