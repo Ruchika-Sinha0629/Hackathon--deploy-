@@ -5,53 +5,30 @@ import { useSession } from "next-auth/react";
 import "/src/app/styles/gamification.css";
 
 export default function Gamification() {
-
   const { data: session, status } = useSession();
-
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [workoutSubmitted, setWorkoutSubmitted] = useState(false);
 
   // Check workout status on initial load
-useEffect(() => {
-  if (status !== "authenticated") return;
+  useEffect(() => {
+    if (status !== "authenticated") return;
 
-  const checkWorkoutStatus = async () => {
-    try {
-      const response = await axios.post(
-        "/api/gamification",
-        { completedWorkout: false },
-        { withCredentials: true }
-      );
-      setData(response.data);
-      setWorkoutSubmitted(response.data.alreadyRewarded || false);
-    } catch (error) {
-      console.error("Error checking workout status:", error);
-    }
-  };
+    const checkWorkoutStatus = async () => {
+      try {
+        const response = await axios.post(
+          "/api/gamification",
+          { completedWorkout: false },
+          { withCredentials: true }
+        );
+        setData(response.data);
+      } catch (error) {
+        console.error("Error checking workout status:", error);
+      }
+    };
 
-  checkWorkoutStatus();
-}, [status]);
+    checkWorkoutStatus();
+  }, [status]);
 
-  const handleWorkoutComplete = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.post("/api/gamification", {
-        completedWorkout: true,
-        weightUpdate: 75 } , // Optional 
-        { withCredentials: true }
-
-      );
-      setData(response.data);
-      setWorkoutSubmitted(true);
-    } catch (error) {
-      console.error("Error submitting workout:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-   // Show login prompt if not authenticated
+  // Show login prompt if not authenticated
   if (status === "unauthenticated") {
     return (
       <div className="auth-message">
@@ -65,16 +42,6 @@ useEffect(() => {
   return (
     <div className="container">
       <h1>Gamification Dashboard</h1>
-
-      <button
-        onClick={handleWorkoutComplete}
-        disabled={workoutSubmitted || loading}
-        className={`workout-button ${workoutSubmitted ? "disabled" : ""}`}
-      >
-        {workoutSubmitted ? "Workout Logged ✅" : "Mark Workout Complete"}
-      </button>
-
-      {loading && <p>Calculating points...</p>}
 
       {data && (
         <>
